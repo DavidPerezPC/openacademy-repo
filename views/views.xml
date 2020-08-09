@@ -1,4 +1,26 @@
 <odoo>
+
+    <record model="ir.ui.view" id="course_form_view">
+      <field name="name">course.form</field>
+      <field name="model">openacademy.course</field>
+      <field name="arch" type="xml">
+        <form string="Course Form">
+            <sheet>
+                <group>
+                    <field name="title"/>
+                </group>
+            </sheet>
+            <notebook>
+                <page string="Description">
+                    <field name="description"/>
+                </page>
+                <page string="About">
+                    This is an example of notebooks
+                </page>
+            </notebook>
+        </form>
+      </field>
+    </record>
     <!-- explicit list view definition -->
 <!--
     <record model="ir.ui.view" id="openacademy.list">
