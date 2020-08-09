@@ -9,11 +9,23 @@ class Course(models.Model):
 
     name = fields.Char(string="Title", required=True)
     description = fields.Text()
+    responsible_id = fields.Many2one(
+        "res.users", string="Responsible",
+        index=True, ondelete="set null")
+    session_ids = fields.One2many('openacademy.session', "course_id")
 
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         for record in self:
-#             record.value2 = float(record.value) / 100
+
+class Session(models.Model):
+    _name = 'openacademy.session'
+
+    name = fields.Char(required=True, string="Session Name")
+    start_date = fields.Date(string="Start Date")
+    duration = fields.Float(digits=(6,2), string="Duaration", help="Duration in days")
+    seats = fields.Integer(string="Numbers of seats")
+    instructor_id = fields.Many2one(
+        "res.partner", string="Instructor")
+    course_id = fields.Many2one(
+        "openacademy.course", ondelete="cascade",
+        string="Course", required=True)
+    attendee_ids = fields.Many2many("res.partner", string="Attendees")
+

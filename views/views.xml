@@ -1,5 +1,6 @@
 <odoo>
 
+    <!-- Course Forms -->
     <record model="ir.ui.view" id="course_form_view">
       <field name="name">course.form</field>
       <field name="model">openacademy.course</field>
@@ -7,7 +8,8 @@
         <form string="Course Form">
             <sheet>
                 <group>
-                    <field name="title"/>
+                    <field name="name" string="Title"/>
+                    <field name="responsible_id" />
                 </group>
             </sheet>
             <notebook>
@@ -16,6 +18,14 @@
                 </page>
                 <page string="About">
                     This is an example of notebooks
+                </page>
+                <page string="Courses">
+                    <field name="session_ids" nolabel="1">
+                        <tree string="Registered Sessions">
+                            <field name="name"/>
+                            <field name="instructor_id"/>
+                        </tree>
+                    </field>
                 </page>
             </notebook>
         </form>
@@ -27,8 +37,9 @@
       <field name="model">openacademy.course</field>
       <field name="arch" type="xml">
         <tree string="Course List">
-          <field name="name" string="Name Tree"/>
-          <field name="description"/>
+            <field name="name" string="Name Tree"/>
+            <field name="description"/>
+            <field name="responsible_id" />
         </tree>
       </field>
     </record>
@@ -44,9 +55,56 @@
       </field>
     </record>
 
+    <!-- Session Forms -->
+    <record model="ir.ui.view" id="session_form_view">
+        <field name="name">session.form</field>
+        <field name="model">openacademy.session</field>
+        <field name="arch" type="xml">
+            <form string="Session Form">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="start_date"/>
+                        <field name="duration"/>
+                        <field name="seats"/>
+                        <field name="instructor_id" />
+                        <field name="course_id" />
+                        <label for="attendee_ids" />
+                        <field name="attendee_ids" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
+   <record model="ir.ui.view" id="session_list_view">
+      <field name="name">session.list</field>
+      <field name="model">openacademy.session</field>
+      <field name="arch" type="xml">
+        <tree string="Course List">
+            <field name="name"/>
+            <field name="start_date" />
+            <field name="duration" />
+            <field name="seats" />
+            <field name="instructor_id" />
+            <field name="course_id" />
+        </tree>
+      </field>
+    </record>
+<!--
+    <record model="ir.ui.view" id="course_search_form">
+      <field name="name">course.search</field>
+      <field name="model">openacademy.course</field>
+      <field name="arch" type="xml">
+        <search string="Course Search">
+          <field name="name" string="Name Search"/>
+          <field name="description"/>
+        </search>
+      </field>
+    </record>
+-->
     <!-- actions opening views on models -->
-
+    <!-- Course Action -->
     <record model="ir.actions.act_window" id="course_list_action">
       <field name="name">Courses</field>
       <field name="res_model">openacademy.course</field>
@@ -56,6 +114,15 @@
       </field>
     </record>
 
+    <!-- Session Action -->
+    <record model="ir.actions.act_window" id="session_list_action">
+      <field name="name">Session</field>
+      <field name="res_model">openacademy.session</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+          <p class="oe_view_nocontent_create">Create Session to offer</p>
+      </field>
+    </record>
 
     <!-- server action to the one above -->
 <!--
@@ -80,4 +147,7 @@
     <!-- actions -->
     <menuitem name="Courses" id="courses_menu" parent="openacademy_menu"
               action="course_list_action"/>
+
+    <menuitem name="Session" id="session_menu" parent="openacademy_menu"
+              action="session_list_action"/> -->
 </odoo>
