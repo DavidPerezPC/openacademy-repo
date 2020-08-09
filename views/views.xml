@@ -21,20 +21,29 @@
         </form>
       </field>
     </record>
-    <!-- explicit list view definition -->
-<!--
-    <record model="ir.ui.view" id="openacademy.list">
-      <field name="name">openacademy list</field>
-      <field name="model">openacademy.openacademy</field>
+
+    <record model="ir.ui.view" id="course_list_form">
+      <field name="name">course.list</field>
+      <field name="model">openacademy.course</field>
       <field name="arch" type="xml">
-        <tree>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
+        <tree string="Course List">
+          <field name="name" string="Name Tree"/>
+          <field name="description"/>
         </tree>
       </field>
     </record>
--->
+
+    <record model="ir.ui.view" id="course_search_form">
+      <field name="name">course.search</field>
+      <field name="model">openacademy.course</field>
+      <field name="arch" type="xml">
+        <search string="Course Search">
+          <field name="name" string="Name Search"/>
+          <field name="description"/>
+        </search>
+      </field>
+    </record>
+
 
     <!-- actions opening views on models -->
 
